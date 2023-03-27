@@ -1,6 +1,6 @@
 from colorama import Fore
 from helper_functions import color_print, print_result, is_input_valid
-from calculations import get_sentences, get_amount_of_sentences, get_top_K_repeated_N_grams, get_average_length_of_sentence, get_average_length_of_word, get_amount_of_non_declarative_sentences
+from calculations import  get_amount_of_sentences, get_top_K_repeated_N_grams, get_average_length_of_sentence, get_average_length_of_word, get_amount_of_non_declarative_sentences
 
 
 def main():
