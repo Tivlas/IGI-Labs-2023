@@ -1,8 +1,8 @@
-from commands_logics import CommandAction
-
+from storage import StorageEmulator
 
 class CommandExecutor:
     @staticmethod
-    def execute_commands(commands_args_pairs):
+    def execute_commands(storage: StorageEmulator,commands_args_pairs):
         for comm, args in commands_args_pairs:
-            CommandAction.actions[comm](args)
+            action = getattr(storage,comm)
+            action(args)

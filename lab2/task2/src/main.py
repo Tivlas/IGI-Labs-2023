@@ -5,36 +5,26 @@ from colorama import Fore, Style
 from os import getcwd
 from file_service import FileService
 
-FileService.save_and_read_all_directory = getcwd()
+FileService.save_and_read_directory = getcwd()
+
+storage = StorageEmulator()
 
 user_selected = False
 while not user_selected:
     try:
-        CommandExecutor.execute_commands(
-            CommandParser.get_commands_and_args(input("switch to user: ")))
+        CommandExecutor.execute_commands(storage,
+                                         CommandParser.get_commands_and_args('switch '+input("switch to user: ")))
         user_selected = True
     except Exception as e:
         print(e.args[0])
+        storage.clear()
         continue
-try:
-    while True:
-        choice = input(
-            f"Wanna load containers from previous run of the program (y/n): ")
-        if choice == 'y':
-            FileService.load_all()
-            print("Containers were loaded, type list to see contents")
-            break
-        elif choice == 'n':
-            break
-        else:
-            print("Invalid choice!")
-except:
-    print("Containers not found. Load it from file or fill manually")
+
 
 while True:
     try:
-        CommandExecutor.execute_commands(
-            CommandParser.get_commands_and_args(input(f"{Fore.YELLOW}{StorageEmulator.cur_user}$ {Style.RESET_ALL}")))
+        CommandExecutor.execute_commands(storage,
+                                         CommandParser.get_commands_and_args(input(f"{Fore.YELLOW}{storage.get_cur_user_name()}$ {Style.RESET_ALL}")))
     except Exception as e:
         print(e.args[0])
         continue
