@@ -1,4 +1,3 @@
-from collections import Counter
 from constants import SPLIT_INTO_SENTENCES_PATTERN, FIND_ALL_WORDS_PATTERN, NON_DECLARATIVE_SENTENCE_ENDINGS
 
 
@@ -62,9 +61,14 @@ def get_top_K_repeated_N_grams(text, k=10, n=4):
     for words in words_by_sentence:
         n_grams.extend(list(zip(*[words[i:] for i in range(n)])))
 
-    counter = Counter()
+    counter = dict()
 
     for n_gram in n_grams:
-        counter[' '.join(n_gram)] += 1
+        key = ' '.join(n_gram)
+        counter.setdefault(key, 0)
+        counter[key] += 1
 
-    return dict(counter.most_common(k))
+    k_most_common_n_grams = dict(list({key: value for key, value in sorted(
+        counter.items(), key=lambda item: item[1], reverse=True)}.items())[:k])
+
+    return k_most_common_n_grams

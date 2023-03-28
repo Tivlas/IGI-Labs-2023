@@ -1,6 +1,6 @@
 from colorama import Fore
 from helper_functions import color_print, print_result, is_input_valid
-from calculations import  get_amount_of_sentences, get_top_K_repeated_N_grams, get_average_length_of_sentence, get_average_length_of_word, get_amount_of_non_declarative_sentences
+from calculations import get_amount_of_sentences, get_top_K_repeated_N_grams, get_average_length_of_sentence, get_average_length_of_word, get_amount_of_non_declarative_sentences
 
 
 def main():
@@ -34,6 +34,8 @@ def main():
                 color_print("Enter N: ", Fore.YELLOW, '')
                 N = int(input())
                 print()
+                if K <= 0 or N <= 0:
+                    print("Numbers have to be > 0")
             except:
                 color_print("Invalid input!", Fore.RED)
                 continue
@@ -47,10 +49,12 @@ def main():
 
     results = dict()
 
-    results['amount of sentences in the text'] = get_amount_of_sentences(text)
+    results['amount of sentences in the text'] = get_amount_of_sentences(
+        text)
     results['amount of non-declarative sentences in the text'] = get_amount_of_non_declarative_sentences(
         text)
-    results['amount of sentences in the text'] = get_amount_of_sentences(text)
+    results['amount of sentences in the text'] = get_amount_of_sentences(
+        text)
     results['average length of the sentence in characters (words count only)'] = get_average_length_of_sentence(
         text)
     results['average length of the word in the text in characters'] = get_average_length_of_word(
