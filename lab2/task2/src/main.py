@@ -5,9 +5,13 @@ from colorama import Fore, Style
 from os import getcwd
 from file_service import FileService
 
+
 FileService.save_and_read_directory = getcwd()
 
 storage = StorageEmulator()
+
+CommandExecutor.execute_commands(storage,
+                                 CommandParser.get_commands_and_args('help'))
 
 user_selected = False
 while not user_selected:

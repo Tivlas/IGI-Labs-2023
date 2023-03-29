@@ -124,8 +124,6 @@ class StorageEmulator:
             print("No such elements")
 
     def help(self, _):
-        if self.__cur_user_name == '':
-            raise Exception("User is not selected!")
         print(HELP_INFO)
 
     def save(self, _):

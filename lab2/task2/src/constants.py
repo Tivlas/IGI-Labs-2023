@@ -24,7 +24,7 @@ EXIT_INFO = f"{green}exit{default} — quits the program. Takes 0 parameters."
 
 ADDITIONAL_INFO = f"{green}Note:{default} command name cannot be a parameter to another command!"
 
-HELP_INFO = f"\n{SWITCH_INFO}\n\n{ADD_INFO}\n\n{REMOVE_INFO}\n\n{FIND_INFO}\n\n{LIST_INFO}\n\n{GREP_INFO}\n\n{LOAD_INFO}\n\n{SAVE_INFO}\n\n{EXIT_INFO}\n\n{ADDITIONAL_INFO}"
+HELP_INFO = f"\n{SWITCH_INFO}\n{ADD_INFO}\n{REMOVE_INFO}\n{FIND_INFO}\n{LIST_INFO}\n{GREP_INFO}\n{LOAD_INFO}\n{SAVE_INFO}\n{EXIT_INFO}\n{ADDITIONAL_INFO}\n"
 
 COMMAND_PATTERN = re.compile(
     r'(?<!\S)\b(?:add|remove|find|grep|save|load|list|switch|help|exit)\b(?=(?:(?:[^"]*"){2})*[^"]*$)(?<!")')
