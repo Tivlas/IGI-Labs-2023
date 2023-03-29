@@ -23,8 +23,19 @@ class StorageEmulator:
             choice = input(
                 f"Wanna save {self.__cur_user_name}'s container (y/n): ")
             if choice == 'y':
+                file_path = None
+                while True:
+                    choice = input("Wanna specify the path (y/n): ")
+                    if choice == 'y':
+                        file_path = input('Enter path: ')
+                        break
+                    elif choice == 'n':
+                        break
+                    else:
+                        print("Invalid choice!")
+                        continue
                 FileService.save(self.__cur_user_name,
-                                 self.__storage[self.__cur_user_name])
+                                 self.__storage[self.__cur_user_name], file_path)
                 self.__storage[self.__cur_user_name].clear()
                 break
             elif choice == 'n':
@@ -44,13 +55,25 @@ class StorageEmulator:
                 f"Wanna load container for {username} (y/n): ")
             if choice == 'y':
                 try:
+                    file_path = None
+                    while True:
+                        choice = input("Wanna specify the path (y/n): ")
+                        if choice == 'y':
+                            file_path = input('Enter path: ')
+                            break
+                        elif choice == 'n':
+                            break
+                        else:
+                            print("Invalid choice!")
+                            continue
                     self.__storage[self.__cur_user_name] |= FileService.load(
-                        self.__cur_user_name)
+                        self.__cur_user_name, file_path)
                 except ValueError as ve:
                     if isinstance(ve, json.decoder.JSONDecodeError):
                         print("Invalid data in provided file")
                     else:
-                        print(ve.args[0])
+                        print(str(ve))
+                    continue
                 break
             elif choice == 'n':
                 break
@@ -90,8 +113,19 @@ class StorageEmulator:
             choice = input(
                 f"Wanna save {self.__cur_user_name}'s container (y/n): ")
             if choice == 'y':
+                file_path = None
+                while True:
+                    choice = input("Wanna specify the path (y/n): ")
+                    if choice == 'y':
+                        file_path = input('Enter path: ')
+                        break
+                    elif choice == 'n':
+                        break
+                    else:
+                        print("Invalid choice!")
+                        continue
                 FileService.save(self.__cur_user_name,
-                                 self.__storage[self.__cur_user_name])
+                                 self.__storage[self.__cur_user_name], file_path)
                 break
             elif choice == 'n':
                 break
