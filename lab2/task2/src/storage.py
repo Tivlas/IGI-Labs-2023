@@ -25,6 +25,7 @@ class StorageEmulator:
             if choice == 'y':
                 FileService.save(self.__cur_user_name,
                                  self.__storage[self.__cur_user_name])
+                self.__storage[self.__cur_user_name].clear()
                 break
             elif choice == 'n':
                 self.__storage[self.__cur_user_name].clear()
