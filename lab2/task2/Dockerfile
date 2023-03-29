@@ -1,6 +1,10 @@
-FROM python
+FROM python:alpine
 
 WORKDIR /lab2_task2
+
+RUN mkdir ./users_data
+
+VOLUME ./users_data
 
 COPY requirements.txt .
 
