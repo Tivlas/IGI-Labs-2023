@@ -7,7 +7,7 @@ import re
 class StorageEmulator:
     def __init__(self) -> None:
         self.__cur_user_name = ''
-        self.__storage = dict()
+        self.__storage: dict[str, set] = dict()
 
     def clear(self):
         self.__storage.clear()
@@ -128,11 +128,11 @@ class StorageEmulator:
             raise Exception("User is not selected!")
         print(HELP_INFO)
 
-    def save(self,_):
+    def save(self, _):
         FileService.save(self.__cur_user_name,
                          self.__storage[self.__cur_user_name])
 
-    def load(self,_):
+    def load(self, _):
         try:
             self.__storage[self.__cur_user_name] |= FileService.load(
                 self.__cur_user_name)
