@@ -23,23 +23,27 @@ class Validator:
                     break
                 case 'add':
                     if args is None or len(args) < 1:
-                        raise ValueError("add command takes at least 1 parameter")
+                        raise ValueError(
+                            "add command takes at least 1 parameter")
                     break
                 case 'find':
                     if args is None or len(args) < 1:
-                        raise ValueError("find command takes at least 1 parameter")
+                        raise ValueError(
+                            "find command takes at least 1 parameter")
                     break
                 case 'grep':
                     if args is None or len(args) != 1:
                         raise ValueError("grep command takes 1 parameter")
                     break
                 case 'save':
-                    if args is not None and len(args) != 0:
-                        raise ValueError("save command takes 1 parameter")
+                    ok = args is None or len(args) == 1
+                    if not ok:
+                        raise ValueError("save command takes 0 or 1 parameter")
                     break
                 case 'load':
-                    if args is not None and len(args) != 0:
-                        raise ValueError("load command takes 1 parameter")
+                    ok = args is None or len(args) == 1
+                    if not ok:
+                        raise ValueError("load command takes 0 or 1 parameter")
                     break
                 case 'switch':
                     if args is None or len(args) != 1:

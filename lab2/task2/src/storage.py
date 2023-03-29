@@ -126,13 +126,17 @@ class StorageEmulator:
     def help(self, _):
         print(HELP_INFO)
 
-    def save(self, _):
+    def save(self, file_path=None):
+        if file_path is not None:
+            file_path = file_path[0]
         FileService.save(self.__cur_user_name,
-                         self.__storage[self.__cur_user_name])
+                         self.__storage[self.__cur_user_name], file_path)
 
-    def load(self, _):
+    def load(self, file_path=None):
+        if file_path is not None:
+            file_path = file_path[0]
         try:
             self.__storage[self.__cur_user_name] |= FileService.load(
-                self.__cur_user_name)
+                self.__cur_user_name, file_path)
         except json.decoder.JSONDecodeError:
             print("Invalid data in provided file")
