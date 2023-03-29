@@ -8,7 +8,7 @@ def test_get_amount_of_sentences0():
 
 
 def test_get_amount_of_sentences1():
-    text = 'Hi, Mr. Name.'
+    text = 'Hi, Mr.Name.'
     assert get_amount_of_sentences(text) == 1
 
 
@@ -64,6 +64,16 @@ def test_get_amount_of_sentences11():
 
 def test_get_amount_of_sentences12():
     text = 'Hello... lololo!!'
+    assert get_amount_of_sentences(text) == 1
+
+
+def test_get_amount_of_sentences13():
+    text = 'At the monday he said, "...Qwe qwe qwe?! Hello, Mr. David!", qweq qwe qwe'
+    assert get_amount_of_sentences(text) == 1
+
+
+def test_get_amount_of_sentences14():
+    text = 'Ph.D. john B.Sci.arg!'
     assert get_amount_of_sentences(text) == 1
 
 # ————————————————————————————————————————————————————————————
