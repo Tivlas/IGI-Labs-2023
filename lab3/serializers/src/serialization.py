@@ -1,4 +1,4 @@
-import constants
+from . import constants
 
 
 def get_specific_serializer_function(obj):
