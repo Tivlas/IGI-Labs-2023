@@ -6,6 +6,8 @@ def get_specific_serializer_function(obj):
         return serialize_primitive_type
     if isinstance(obj, dict):
         return serialize_dict
+    if isinstance(obj, list | tuple | bytes):
+        return serialize_default_collection
 
 
 def serialize(obj) -> tuple:
@@ -74,4 +76,24 @@ def serialize_dict(obj: dict) -> dict:
     serialized_obj[constants.VALUE] = tuple((k, serialized_obj[constants.VALUE][k])
                                             for k in serialized_obj[constants.VALUE])
 
+    return serialized_obj
+
+
+def serialize_default_collection(obj: tuple | list | bytes):
+    """ 
+    Function:
+    -----------
+    Serializes tuple | list | bytes
+
+    Parameters:
+    -----------
+           - obj: object to serialize
+
+    Returns:
+    -----------
+          - dict with tuple
+    """
+    serialized_obj = dict()
+    serialized_obj[constants.TYPE] = type(obj).__name__
+    serialized_obj[constants.VALUE] = tuple([serialize(i) for i in obj])
     return serialized_obj
