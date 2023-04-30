@@ -102,5 +102,33 @@ def serialize_default_collection(obj: tuple | list | bytes):
     return serialized_obj
 
 
-def serialize_function(obj: function):
-    pass
+def serialize_function(obj):
+    serialized_function = dict()
+    serialized_function[constants.TYPE] = constants.FUNCTION
+    serialized_function[constants.VALUE] = {}
+    members = inspect.getmembers(obj)
+    members = [i for i in members if i[0] in constants.FUNCTION_ATTRIBUTES]
+    for i in members:
+        key = serialize(i[0])
+        if i[0] != constants.CLOSURE:
+            value = serialize(i[1])
+        else:
+            value = serialize(None)
+
+        serialized_function[constants.VALUE][key] = value
+        if i[0] == constants.CODE:
+            key = serialize(constants.GLOBALS)
+            serialized_function[constants.VALUE][key] = {}
+            names = i[1].__getattribute__("co_names")
+            glob = obj.__getattribute__(constants.GLOBALS)
+            glob_dict = {}
+            for name in names:
+                if name == obj.__name__:
+                    glob_dict[name] = obj.__name__
+                elif name in glob and not inspect.ismodule(name) and name not in __builtins__:
+                    glob_dict[name] = glob[name]
+            serialized_function[constants.VALUE][key] = serialize(glob_dict)
+
+    serialized_function[constants.VALUE] = tuple((k, serialized_function[constants.VALUE][k])
+                                                 for k in serialized_function[constants.VALUE])
+    return serialized_function
