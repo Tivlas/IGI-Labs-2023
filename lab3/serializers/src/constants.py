@@ -20,3 +20,4 @@ FUNCTION_ATTRIBUTES = [
 GLOBALS = "__globals__"
 BUILTINS = "__builtins__"
 DOC = "__doc__"
+OBJECT = "object"
