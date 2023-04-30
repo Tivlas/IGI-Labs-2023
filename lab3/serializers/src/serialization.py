@@ -11,6 +11,11 @@ def get_specific_serializer_function(obj):
         return serialize_default_collection
     if inspect.isfunction(obj):
         return serialize_function
+    if isinstance(obj, type(type.__dict__)):
+        return serialize_mappingproxy
+    if inspect.isclass(obj):
+        return serialize_class
+    return serialize_any_obj
 
 
 def serialize(obj) -> tuple:
@@ -132,3 +137,39 @@ def serialize_function(obj):
     serialized_function[constants.VALUE] = tuple((k, serialized_function[constants.VALUE][k])
                                                  for k in serialized_function[constants.VALUE])
     return serialized_function
+
+
+def serialize_mappingproxy(obj):
+    serialized_obj = dict()
+    serialized_obj[constants.TYPE] = type(obj).__name__
+
+    serialized_obj[constants.VALUE] = {}
+    members = inspect.getmembers(obj)
+    members = [i for i in members if not callable(i[1])]
+    for i in members:
+        key = serialize(i[0])
+        val = serialize(i[1])
+        serialized_obj[constants.VALUE][key] = val
+    serialized_obj[constants.VALUE] = tuple(
+        (k, serialized_obj[constants.VALUE][k]) for k in serialized_obj[constants.VALUE])
+
+    return serialized_obj
+
+
+def serialize_class(obj):
+    pass
+
+
+def serialize_any_obj(obj):
+    obj_type = type(obj)
+    serialized_obj = dict()
+    serialized_obj[constants.TYPE] = constants.OBJECT
+    serialized_obj[constants.VALUE] = {}
+    serialized_obj[constants.VALUE][serialize(
+        constants.OBJECT_NAME)] = serialize(obj_type)
+    serialized_obj[constants.VALUE][serialize(
+        constants.FIELDS_NAME)] = serialize(obj.__dict__)
+    serialized_obj[constants.VALUE] = tuple(
+        (k, serialized_obj[constants.VALUE][k]) for k in serialized_obj[constants.VALUE])
+
+    return serialized_obj
