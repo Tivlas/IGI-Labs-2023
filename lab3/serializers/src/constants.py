@@ -21,3 +21,11 @@ GLOBALS = "__globals__"
 BUILTINS = "__builtins__"
 DOC = "__doc__"
 OBJECT = "object"
+
+CLASS = "class"
+NOT_CLASS_ATTRIBUTES = [
+    "__class__",
+    "__getattribute__",
+    "__new__",
+    "__setattr__",
+]
