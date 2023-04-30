@@ -1,4 +1,5 @@
 from . import constants
+import inspect
 
 
 def get_specific_serializer_function(obj):
@@ -8,6 +9,8 @@ def get_specific_serializer_function(obj):
         return serialize_dict
     if isinstance(obj, list | tuple | bytes):
         return serialize_default_collection
+    if inspect.isfunction(obj):
+        return serialize_function
 
 
 def serialize(obj) -> tuple:
@@ -97,3 +100,7 @@ def serialize_default_collection(obj: tuple | list | bytes):
     serialized_obj[constants.TYPE] = type(obj).__name__
     serialized_obj[constants.VALUE] = tuple([serialize(i) for i in obj])
     return serialized_obj
+
+
+def serialize_function(obj: function):
+    pass
