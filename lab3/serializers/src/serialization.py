@@ -157,7 +157,24 @@ def serialize_mappingproxy(obj):
 
 
 def serialize_class(obj):
-    pass
+    serialized_obj = dict()
+    serialized_obj[constants.TYPE] = constants.CLASS
+    serialized_obj[constants.VALUE] = {}
+    serialized_obj[constants.VALUE][serialize(
+        constants.NAME)] = serialize(obj.__name__)
+    members = []
+    for i in inspect.getmembers(obj):
+        if not (i[0] in constants.NOT_CLASS_ATTRIBUTES):
+            members.append(i)
+
+    for i in members:
+        key = serialize(i[0])
+        val = serialize(i[1])
+        serialized_obj[constants.VALUE][key] = val
+    serialized_obj[constants.VALUE] = tuple(
+        (k, serialized_obj[constants.VALUE][k]) for k in serialized_obj[constants.VALUE])
+
+    return serialized_obj
 
 
 def serialize_any_obj(obj):
