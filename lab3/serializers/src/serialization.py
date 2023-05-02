@@ -97,7 +97,7 @@ def serialize_default_collection(obj: tuple | list | bytes):
 
     Parameters:
     -----------
-           - obj: object to serialize
+           - obj: collection to serialize
 
     Returns:
     -----------
@@ -109,7 +109,20 @@ def serialize_default_collection(obj: tuple | list | bytes):
     return serialized_obj
 
 
-def serialize_function(obj):
+def serialize_function(obj) -> dict:
+    """ 
+    Function:
+    -----------
+    Serializes function
+
+    Parameters:
+    -----------
+           - obj: function to serialize
+
+    Returns:
+    -----------
+          - dict
+    """
     serialized_function = dict()
     serialized_function[constants.TYPE] = constants.FUNCTION
     serialized_function[constants.VALUE] = {}
@@ -141,7 +154,20 @@ def serialize_function(obj):
     return serialized_function
 
 
-def serialize_mappingproxy(obj):
+def serialize_mappingproxy(obj) -> dict:
+    """ 
+    Function:
+    -----------
+    Serializes mappingproxy
+
+    Parameters:
+    -----------
+           - obj: mappingproxy to serialize
+
+    Returns:
+    -----------
+          - dict
+    """
     serialized_obj = dict()
     serialized_obj[constants.TYPE] = type(obj).__name__
 
@@ -158,7 +184,20 @@ def serialize_mappingproxy(obj):
     return serialized_obj
 
 
-def serialize_class(obj):
+def serialize_class(obj) -> dict:
+    """ 
+    Function:
+    -----------
+    Serializes class
+
+    Parameters:
+    -----------
+           - obj: class to serialize
+
+    Returns:
+    -----------
+          - dict
+    """
     serialized_obj = dict()
     serialized_obj[constants.TYPE] = constants.CLASS
     serialized_obj[constants.VALUE] = {}
@@ -179,7 +218,20 @@ def serialize_class(obj):
     return serialized_obj
 
 
-def serialize_code(obj):
+def serialize_code(obj) -> dict:
+    """ 
+    Function:
+    -----------
+    Serializes code type
+
+    Parameters:
+    -----------
+           - obj: code to serialize
+
+    Returns:
+    -----------
+          - dict
+    """
     if type(obj).__name__ is None:
         return None
 
@@ -199,7 +251,20 @@ def serialize_code(obj):
     return serialized_code
 
 
-def serialize_any_obj(obj):
+def serialize_any_obj(obj) -> dict:
+    """ 
+    Function:
+    -----------
+    Serializes any object of unknown type
+
+    Parameters:
+    -----------
+           - obj: object to serialize
+
+    Returns:
+    -----------
+          - dict
+    """
     obj_type = type(obj)
     serialized_obj = dict()
     serialized_obj[constants.TYPE] = constants.OBJECT

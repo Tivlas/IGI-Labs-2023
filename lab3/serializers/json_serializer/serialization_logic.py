@@ -1,4 +1,17 @@
 def serialize_to_json(obj) -> str:
+    """ 
+    Function:
+    -----------
+    Serializes object to josn string
+
+    Parameters:
+    -----------
+           - obj: object to serialize
+
+    Returns:
+    -----------
+          - string
+    """
     if type(obj) == tuple:
         serialized = []
         for i in obj:
