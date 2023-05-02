@@ -15,6 +15,8 @@ def get_specific_serializer_function(obj):
         return serialize_mappingproxy
     if inspect.isclass(obj):
         return serialize_class
+    if inspect.iscode(obj):
+        return serialize_code
     return serialize_any_obj
 
 
@@ -175,6 +177,26 @@ def serialize_class(obj):
         (k, serialized_obj[constants.VALUE][k]) for k in serialized_obj[constants.VALUE])
 
     return serialized_obj
+
+
+def serialize_code(obj):
+    if type(obj).__name__ is None:
+        return None
+
+    serialized_code = dict()
+    serialized_code[constants.TYPE] = type(obj).__name__
+
+    serialized_code[constants.VALUE] = {}
+    members = inspect.getmembers(obj)
+    members = [i for i in members if not callable(i[1])]
+    for i in members:
+        key = serialize(i[0])
+        val = serialize(i[1])
+        serialized_code[constants.VALUE][key] = val
+    serialized_code[constants.VALUE] = tuple(
+        (k, serialized_code[constants.VALUE][k]) for k in serialized_code[constants.VALUE])
+
+    return serialized_code
 
 
 def serialize_any_obj(obj):
