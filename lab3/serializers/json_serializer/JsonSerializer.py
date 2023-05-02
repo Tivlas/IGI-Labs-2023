@@ -19,7 +19,7 @@ class JsonSerializer:
             - string
         """
         serialized_obj = serialize(obj)
-        return serialize_to_json(serialized_obj)
+        return serialize_to_json(serialized_obj).replace('\n', '\\n')
 
     @staticmethod
     def dump(obj, file) -> None:
