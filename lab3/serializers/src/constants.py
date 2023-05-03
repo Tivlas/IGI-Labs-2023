@@ -2,6 +2,18 @@ TYPE = "type"
 VALUE = "value"
 
 DICT = "dict"
+LIST = "list"
+BYTES = "bytes"
+TUPLE = "tuple"
+INT = "int"
+BOOL = "bool"
+STR = "str"
+FLOAT = "float"
+NONE_TYPE = "NoneType"
+COMPLEX = "complex"
+
+PRIMITIVE_TYPES = [INT, FLOAT, BOOL, COMPLEX, NONE_TYPE, STR]
+DEFAULT_COLLECTION_TYPES = [LIST, TUPLE, BYTES]
 
 FUNCTION = "function"
 
