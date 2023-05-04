@@ -18,6 +18,17 @@ def create_deserializer(obj_type):
         return deserialize_module
 
 
+def deserialize(obj):
+    obj = dict((a, b) for a, b in obj)
+    obj_type = obj[constants.TYPE]
+    deserializer = create_deserializer(obj_type)
+
+    if deserializer is None:
+        return
+
+    return deserializer(obj_type, obj[constants.VALUE])
+
+
 def deserialize_primitive_type():
     pass
 
