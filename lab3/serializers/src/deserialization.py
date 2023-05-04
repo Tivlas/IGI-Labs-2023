@@ -69,8 +69,8 @@ def deserialize_class():
     pass
 
 
-def deserialize_module():
-    pass
+def deserialize_module(_, module_name):
+    return __import__(module_name)
 
 
 def deserialize_any_obj():
