@@ -1,4 +1,5 @@
 from . import constants
+from pydoc import locate
 
 
 def create_deserializer(obj_type):
@@ -29,8 +30,14 @@ def deserialize(obj):
     return deserializer(obj_type, obj[constants.VALUE])
 
 
-def deserialize_primitive_type():
-    pass
+def deserialize_primitive_type(obj_type, primitive=None):
+    if obj_type == constants.NONE_TYPE:
+        return None
+
+    if obj_type == constants.BOOL and isinstance(primitive, str):
+        return primitive == constants.TRUE
+
+    return locate(obj_type)(primitive)
 
 
 def deserialize_default_collection():
