@@ -1,5 +1,7 @@
 from ..src.serialization import serialize
+from ..src.deserialization import deserialize
 from .serialization_logic import serialize_to_json
+from .serialization_logic import deserialize_json
 
 
 class JsonSerializer:
@@ -37,3 +39,12 @@ class JsonSerializer:
             - None
         """
         file.write(JsonSerializer.dumps(obj))
+
+    @staticmethod
+    def loads(obj: str):
+        obj = deserialize_json(obj.replace("\\n", "\n"))
+        return deserialize(obj)
+
+    @staticmethod
+    def load(file):
+        return JsonSerializer.loads(file.read())
