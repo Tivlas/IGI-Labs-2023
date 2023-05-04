@@ -40,8 +40,16 @@ def deserialize_primitive_type(obj_type, primitive=None):
     return locate(obj_type)(primitive)
 
 
-def deserialize_default_collection():
-    pass
+def deserialize_default_collection(obj_type, default_collection):
+    match obj_type:
+        case constants.LIST:
+            return [deserialize(i) for i in default_collection]
+
+        case constants.TUPLE:
+            return tuple([deserialize(i) for i in default_collection])
+
+        case constants.BYTES:
+            return bytes([deserialize(i) for i in default_collection])
 
 
 def deserialize_dict():
