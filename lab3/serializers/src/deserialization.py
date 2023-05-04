@@ -52,8 +52,13 @@ def deserialize_default_collection(obj_type, default_collection):
             return bytes([deserialize(i) for i in default_collection])
 
 
-def deserialize_dict():
-    pass
+def deserialize_dict(_, dict):
+    deserialized_dict = {}
+    for i in dict:
+        value = deserialize(i[1])
+        deserialized_dict[deserialize(i[0])] = value
+
+    return deserialized_dict
 
 
 def deserialize_function():
