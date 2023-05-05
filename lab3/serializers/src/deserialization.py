@@ -1,5 +1,6 @@
 from . import constants
 from pydoc import locate
+from types import CodeType, FunctionType
 
 
 def create_deserializer(obj_type):
@@ -61,8 +62,42 @@ def deserialize_dict(_, dict):
     return deserialized_dict
 
 
-def deserialize_function():
-    pass
+def deserialize_function(_, foo):
+    func = [0] * 4
+    code = [0] * 16
+    glob = {constants.BUILTINS: __builtins__}
+
+    for i in function:
+        key = deserialize(i[0])
+
+        if key == constants.GLOBALS:
+            glob_dict = deserialize(i[1])
+            for glob_key in glob_dict:
+                glob[glob_key] = glob_dict[glob_key]
+        elif key == constants.CODE:
+            val = i[1][1][1]
+
+            for arg in val:
+                code_arg_key = deserialize(arg[0])
+                if code_arg_key != constants.DOC and code_arg_key != 'co_linetable':
+                    code_arg_val = deserialize(arg[1])
+                    index = constants.CODE_OBJECT_ARGS.index(code_arg_key)
+                    code[index] = code_arg_val
+
+            code = CodeType(*code)
+        else:
+            index = constants.FUNCTION_ATTRIBUTES.index(key)
+            func[index] = (deserialize(i[1]))
+
+    func[0] = code
+    func.insert(1, glob)
+
+    deserialized_function = FunctionType(*func)
+    if deserialized_function.__name__ in deserialized_function.__getattribute__(constants.GLOBALS):
+        deserialized_function.__getattribute__(constants.GLOBALS)[
+            deserialized_function.__name__] = deserialized_function
+
+    return deserialized_function
 
 
 def deserialize_class(_, class_dict):
