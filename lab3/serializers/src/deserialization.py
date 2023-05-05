@@ -65,8 +65,11 @@ def deserialize_function():
     pass
 
 
-def deserialize_class():
-    pass
+def deserialize_class(_, class_dict):
+    dct = deserialize_dict(constants.DICT, class_dict)
+    name = dct[constants.NAME]
+    del dct[constants.NAME]
+    return type(name, (object,), dct)
 
 
 def deserialize_module(_, module_name):
