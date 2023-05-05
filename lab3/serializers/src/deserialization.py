@@ -76,5 +76,9 @@ def deserialize_module(_, module_name):
     return __import__(module_name)
 
 
-def deserialize_any_obj():
-    pass
+def deserialize_any_obj(_, obj):
+    obj_dict = deserialize_dict(constants.DICT, obj)
+    deserialized_obj = obj_dict[constants.OBJECT_TYPE]()
+    for _, value in obj_dict[constants.FIELDS].items():
+        deserialized_obj.key = value
+    return deserialized_obj
