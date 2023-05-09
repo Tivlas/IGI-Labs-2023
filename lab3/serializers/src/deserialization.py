@@ -62,7 +62,7 @@ def deserialize_dict(_, dict):
     return deserialized_dict
 
 
-def deserialize_function(_, foo):
+def deserialize_function(_, function):
     func = [0] * 4
     code = [0] * 16
     glob = {constants.BUILTINS: __builtins__}
