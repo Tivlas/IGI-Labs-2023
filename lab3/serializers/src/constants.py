@@ -46,3 +46,22 @@ NOT_CLASS_ATTRIBUTES = [
 
 MODULE_NAME = "__module__name__"
 FIELDS = "__fields__"
+
+CODE_OBJECT_ARGS = [
+    'co_argcount',
+    'co_posonlyargcount',
+    'co_kwonlyargcount',
+    'co_nlocals',
+    'co_stacksize',
+    'co_flags',
+    'co_code',
+    'co_consts',
+    'co_names',
+    'co_varnames',
+    'co_filename',
+    'co_name',
+    'co_firstlineno',
+    'co_lnotab',
+    'co_freevars',
+    'co_cellvars'
+]
