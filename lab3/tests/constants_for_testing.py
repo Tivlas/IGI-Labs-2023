@@ -171,3 +171,38 @@ class HardClass(HardBase):
 
     def func2(self, a):
         return func7(a)
+
+
+def raise_if_to_many_args(func):
+    def wrap(*args):
+        if (len(args) > 10):
+            raise ValueError("to many arguments")
+
+        return func(*args)
+
+    return wrap
+
+
+def sum_func(*args):
+    return sum(args)
+
+
+class AAAA:
+    a = 123
+
+    def __init__(self):
+        pass
+
+
+class BBBB:
+    b = 234
+
+    def __init__(self):
+        pass
+
+
+class CCCC(AAAA, BBBB):
+    c = 345
+
+    def __init__(self):
+        pass
