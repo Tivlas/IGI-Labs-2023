@@ -37,7 +37,6 @@ def deserialize_xml(obj: str):
 
             substr += i
         parsed.append(deserialize_xml(substr))
-        parsed = list(filter(lambda x: x != tuple(), parsed))
         return tuple(parsed)
 
     elif obj[:5] == '<str>':
@@ -46,7 +45,6 @@ def deserialize_xml(obj: str):
         if obj[ind + 6:] != "":
             parsed.append(deserialize_xml(obj[5:ind]))
             parsed.append(deserialize_xml(obj[ind + 6:]))
-            parsed = list(filter(lambda x: x != tuple(), parsed))
         else:
             return obj[5:ind]
         return tuple(parsed)
