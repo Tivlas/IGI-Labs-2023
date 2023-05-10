@@ -7,13 +7,11 @@ class XmlSerializer:
     @staticmethod
     def dumps(obj):
         obj = serialize(obj)
-
         return serialize_to_xml(obj)
 
     @staticmethod
     def loads(obj):
         obj = deserialize_xml(obj)
-
         return deserialize(obj)
 
     @staticmethod
