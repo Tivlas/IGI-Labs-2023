@@ -215,3 +215,12 @@ def test_multiple_inheritance():
     assert c.a == tmp.a
     assert c.b == tmp.b
     assert c.c == tmp.c
+
+
+def test_decorator():
+    tmp = deserialize(serialize(raise_if_to_many_args))
+    tmp = tmp(sum_func)
+
+    f = raise_if_to_many_args(sum_func)
+
+    assert f(1, 2, 3) == tmp(1, 2, 3)
