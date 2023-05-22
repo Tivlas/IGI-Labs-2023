@@ -17,12 +17,13 @@ class Client(models.Model):
 
 
 class SeasonClimateDescription(models.Model):
+    alias = models.CharField(max_length=50, null=True)
     season_name = models.CharField(max_length=6, choices=(('summer', 'summer'), ('winter', 'winter'),
-                                                          ('spring', 'spring'), ('autumn', 'autumn')))
+                                                          ('spring', 'spring'), ('autumn', 'autumn')), default='summer')
     climate_description = models.CharField(max_length=200)
 
     def __str__(self) -> str:
-        return self.name
+        return self.season_name
 
 
 class Country(models.Model):
