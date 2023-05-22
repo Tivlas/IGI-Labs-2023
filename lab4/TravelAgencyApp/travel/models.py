@@ -36,17 +36,21 @@ class Hotel(models.Model):
     name = models.CharField(max_length=50)
     stars = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
-    price_per_day = models.DecimalField(default=0.0)
-    country = models.ForeignKey(Country, related_name='hotels')
+    price_per_day = models.DecimalField(
+        default=0.0, max_digits=10, decimal_places=2)
+    country = models.ForeignKey(
+        Country, related_name='hotels', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f"{self.name}"
 
 
 class Trip(models.Model):
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     duration = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(4)])
-    chosen_hotel = models.ForeignKey(Hotel, related_name='trips')
+    chosen_hotel = models.ForeignKey(
+        Hotel, related_name='trips', on_delete=models.CASCADE)
     departure_date = models.DateField()
-    total_cost = models.DecimalField()
+    total_cost = models.DecimalField(
+        default=0.0, max_digits=10, decimal_places=2)
