@@ -16,9 +16,10 @@ class Client(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-class Season(models.Model):
-    name = models.CharField(max_length=6)
-    climate_description = models.CharField(max_length=100)
+class SeasonClimateDescription(models.Model):
+    season_name = models.CharField(max_length=6, choices=(('summer', 'summer'), ('winter', 'winter'),
+                                                          ('spring', 'spring'), ('autumn', 'autumn')))
+    climate_description = models.CharField(max_length=200)
 
     def __str__(self) -> str:
         return self.name
@@ -26,7 +27,8 @@ class Season(models.Model):
 
 class Country(models.Model):
     name = models.CharField(max_length=50)
-    seasons = models.ManyToManyField(Season, related_name='countries')
+    climate_descriptions = models.ManyToManyField(
+        SeasonClimateDescription, related_name='countries')
 
     def __str__(self) -> str:
         return self.name
