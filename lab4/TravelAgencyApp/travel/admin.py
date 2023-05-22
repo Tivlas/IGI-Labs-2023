@@ -9,10 +9,16 @@ class SeasonClimateDescriptionAdmin(admin.ModelAdmin):
     list_display = ['season_name', 'climate_description']
 
 
+class HotelInline(admin.TabularInline):
+    model = Hotel
+    extra = 0
+
+
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
     list_display = ['name']
     filter_horizontal = ['climate_descriptions']
+    inlines = [HotelInline]
 
 
 @admin.register(Hotel)
