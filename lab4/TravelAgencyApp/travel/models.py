@@ -23,7 +23,7 @@ class SeasonClimateDescription(models.Model):
     climate_description = models.CharField(max_length=200)
 
     def __str__(self) -> str:
-        return self.season_name
+        return f"{self.alias} — {self.season_name}: {self.climate_description}"
 
 
 class Country(models.Model):
