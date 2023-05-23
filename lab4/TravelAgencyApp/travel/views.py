@@ -1,7 +1,9 @@
 \
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Trip, Country
-
+from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound
+from django.core.exceptions import PermissionDenied
 
 def list_trips(request, trip_country_name=None):
     trips = Trip.objects.all()
@@ -21,4 +23,12 @@ def edit_trip(request,id):
     pass
 
 def delete_trip(request,id):
-    pass
+    if not request.user.is_staff:
+        raise PermissionDenied("Permission denied!")
+
+    try:
+        trip = Trip.objects.get(id=id)
+        trip.delete()
+        return HttpResponseRedirect("/")
+    except trip.DoesNotExist:
+        return HttpResponseNotFound("<h2>trip does not exist</h2>")
