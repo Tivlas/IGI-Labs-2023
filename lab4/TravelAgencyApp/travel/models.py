@@ -70,3 +70,9 @@ class Trip(models.Model):
 
     def get_absolute_url(self):
         return reverse('travel:trip_details', args=[str(self.id)])
+    
+    def save(self, *args, **kwargs):
+        if self.duration and self.chosen_hotel:
+            self.total_cost = self.duration * 7 * self.chosen_hotel.price_per_day
+
+        super().save(*args, **kwargs)
