@@ -17,12 +17,12 @@
     </ul>
 </div>
 <div id="main" class="trip-list">
-    <h1>{% if country %}{{ country.name }}{% else %}Trip{% endif %}
+    <h1>{% if country %}{{ country.name }}{% else %}Trips{% endif %}
         {% if user.is_staff %}
-        <a href="/create/">Add trip</a>
+        <a href="/create/">    Add trip</a>
         {% endif %}
         {%if user.is_superuser%}
-        <a href="/statistics/">statistics</a>
+        <a href="/statistics/">    Statistics</a>
         {%endif%}
     </h1>
     {% for tr in trips %}
