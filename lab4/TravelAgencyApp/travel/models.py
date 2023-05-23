@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date, timedelta
+from django.urls import reverse
 
 
 class Client(models.Model):
@@ -33,6 +34,9 @@ class Country(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('travel:list_trips_by_country',args=[self.name])
 
 
 class Hotel(models.Model):
@@ -49,11 +53,20 @@ class Hotel(models.Model):
 
 
 class Trip(models.Model):
+    DURATION_CHOICES = [
+        (1, '1 week'),
+        (2, '2 weeks'),
+        (4, '4 weeks'),
+    ]
+    name = models.CharField(max_length=50,default='Trip')
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     duration = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(4)])
+        choices=DURATION_CHOICES, default=1)
     chosen_hotel = models.ForeignKey(
         Hotel, related_name='trips', on_delete=models.CASCADE)
-    departure_date = models.DateField()
+    departure_date = models.DateField(default=date.today)
     total_cost = models.DecimalField(
         default=0.0, max_digits=10, decimal_places=2)
+
+    def get_absolute_url(self):
+        return reverse('travel:trip_details', args=[str(self.id)])
