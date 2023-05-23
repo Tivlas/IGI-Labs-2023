@@ -24,9 +24,30 @@
         {%if user.is_superuser%}
         <a href="/statistics/">    Statistics</a>
         {%endif%}
+        <form action="{{ request.get_full_path }}" method="get">
+            <button type="submit" name="sort" value="ascending">Sort by cost ascending</button>
+            <button type="submit" name="sort" value="descending">Sort by cost descending</button>
+            
+        </form>
+        <form action="{{ request.get_full_path }}" method="get">
+            <label for="min_cost" style="font-size: 20px;">Minimum cost:</label>
+            <input type="number" id="min_cost" name="min_cost" min="0" value="0" step="1">
+            <label for="max_cost" style="font-size: 20px;">Maximum cost:</label>
+            <input type="number" id="max_cost" name="max_cost" min="0" value="1000" step="1">
+            <button type="submit">Filter</button>
+        </form>
+        <form action="{{ request.get_full_path }}" method="get">
+            <label for="min_stars" style="font-size: 20px;">Minimum stars:</label>
+            <input type="number" id="min_stars" name="min_stars" min="1" max="5" value="1" step="1">
+            <label for="max_stars" style="font-size: 20px;">Maximum stars:</label>
+            <input type="number" id="max_stars" name="max_stars" min="1" max="5" value="5" step="1">
+            <button type="submit">Filter</button>
+        </form>
     </h1>
     {% for tr in trips %}
     <div class="item">
+        Trip name: {{ tr.name }}
+        <br>
         Country name: <a href="{{ tr.get_absolute_url }}">{{ tr.country.name }}</a>
         <br>
         Hotel name: {{ tr.chosen_hotel.name }}
