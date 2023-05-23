@@ -64,7 +64,7 @@ class Trip(models.Model):
         choices=DURATION_CHOICES, default=1)
     chosen_hotel = models.ForeignKey(
         Hotel, related_name='trips', on_delete=models.CASCADE)
-    departure_date = models.DateField(default=date.today)
+    departure_date = models.DateField(default=date.today,validators=[MinValueValidator(date.today)])
     total_cost = models.DecimalField(
         default=0.0, max_digits=10, decimal_places=2)
 
