@@ -1,12 +1,10 @@
 from django.contrib import admin
 from .models import SeasonClimateDescription, Country, Trip, Hotel
 
-# Register your models here.
-
 
 @admin.register(SeasonClimateDescription)
 class SeasonClimateDescriptionAdmin(admin.ModelAdmin):
-    list_display = ['season_name', 'climate_description']
+    list_display = ['alias', 'season_name', 'climate_description']
 
 
 class HotelInline(admin.TabularInline):
@@ -25,3 +23,9 @@ class CountryAdmin(admin.ModelAdmin):
 class HotelAdmin(admin.ModelAdmin):
     list_display = ['name', 'stars', 'price_per_day', 'country']
     list_filter = ['stars', 'country']
+
+
+@admin.register(Trip)
+class TripAdmin(admin.ModelAdmin):
+    list_display = ['name','country', 'duration',
+                    'chosen_hotel', 'departure_date', 'total_cost']
