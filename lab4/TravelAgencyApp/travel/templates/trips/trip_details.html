@@ -6,9 +6,10 @@
 <div class="trip-detail">
     <h1>{{ trip.name }}</h1>
     <p class="country">{{ trip.country.name }}</p>
+    <p class="chosen-hotel">Hotel: {{ trip.chosen_hotel.name }}, per day: {{trip.chosen_hotel.price_per_day}}</p>
     <p class="duration">Trip duration: {{ trip.duration }} week(s)</p>
     <p class="departure-date">Departure date: {{ trip.departure_date }}</p>
-    <p class="cost">Cost: {{ trip.total_cost }}</p>
+    <p class="cost">Total cost: {{ trip.total_cost }}</p>
     {%if user.is_authenticated%}
     {%endif%}
     
