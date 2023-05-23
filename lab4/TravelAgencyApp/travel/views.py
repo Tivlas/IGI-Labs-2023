@@ -4,6 +4,7 @@ from .models import Trip, Country
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from django.core.exceptions import PermissionDenied
+from .forms import TripForm
 
 def list_trips(request, trip_country_name=None):
     trips = Trip.objects.all()
@@ -20,15 +21,29 @@ def trip_details(request,id):
     return render(request,'trips/trip_details.html',{'trip':trip})
 
 def edit_trip(request,id):
-    pass
+    trip = None
+    try:
+        trip = get_object_or_404(Trip,id=id)
+    except:
+        return HttpResponseNotFound("<h2>No such trip :(</h2>")
+    
+    if request.method == 'POST':
+        form = TripForm(request.POST, instance=trip)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = TripForm(instance=trip)
+
+    return render(request, 'trips/edit_trip.html', {'form': form, 'trip': trip})
 
 def delete_trip(request,id):
     if not request.user.is_staff:
         raise PermissionDenied("Permission denied!")
-
+    
     try:
-        trip = Trip.objects.get(id=id)
+        trip = get_object_or_404(Trip,id=id)
         trip.delete()
-        return HttpResponseRedirect("/")
-    except trip.DoesNotExist:
-        return HttpResponseNotFound("<h2>trip does not exist</h2>")
+        return redirect("/")
+    except:
+        return HttpResponseNotFound("<h2>No such trip :(</h2>")
