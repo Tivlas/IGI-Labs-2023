@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+{% if country %}{{ country.name }}{% else %}Countries{% endif %}
+{% endblock %}
+{% block content %}
+<div id="sidebar">
+    <h3>Countries</h3>
+    <ul>
+        <li {% if not country %}class="selected" {% endif %}>
+            <a href="{% url 'travel:list_trips' %}">All</a>
+        </li>
+        {% for c in countries %}
+        <li {% if country.name == c.name %}class="selected" {% endif %}>
+            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div id="main" class="trip-list">
+    <h1>{% if country %}{{ country.name }}{% else %}Trip{% endif %}
+        {% if user.is_staff %}
+        <a href="/create/">Add trip</a>
+        {% endif %}
+        {%if user.is_superuser%}
+        <a href="/statistics/">statistics</a>
+        {%endif%}
+    </h1>
+    {% for tr in trips %}
+    <div class="item">
+        Country name: <a href="{{ tr.get_absolute_url }}">{{ tr.country.name }}</a>
+        <br>
+        Hotel name: {{ tr.chosen_hotel.name }}
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+{{ trip.name }}
+{% endblock %}
+{% block content %}
+<div class="trip-detail">
+    <h1>{{ trip.name }}</h1>
+    <p class="country">{{ trip.country.name }}</p>
+    <p class="duration">Trip duration: {{ trip.duration }} week(s)</p>
+    <p class="departure-date">Departure date: {{ trip.departure_date }}</p>
+    <p class="cost">Cost: {{ trip.total_cost }}</p>
+    {%if user.is_authenticated%}
+    {%endif%}
+    
+    {{ book.summary|linebreaks }}
+    {%if user.is_staff%}
+    <td><a href="edit_trip/{{trip.id}}/">Edit</a> | <a href="delete_trip/{{trip.id}}/">Remove</a></td>
+    {%endif%}    
+</div>
+{% endblock %}
