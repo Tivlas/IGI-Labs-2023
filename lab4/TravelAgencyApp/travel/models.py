@@ -5,6 +5,8 @@ from django.urls import reverse
 
 
 class Client(models.Model):
+    username = models.CharField(
+        max_length=255, help_text="Enter username", default='user')
     first_name = models.CharField(max_length=255, help_text="Enter first name")
     last_name = models.CharField(max_length=255, help_text="Enter last name")
     email = models.EmailField(unique=True, help_text='something@gmail.com')
@@ -34,9 +36,9 @@ class Country(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
+
     def get_absolute_url(self):
-        return reverse('travel:list_trips_by_country',args=[self.name])
+        return reverse('travel:list_trips_by_country', args=[self.name])
 
 
 class Hotel(models.Model):
@@ -58,19 +60,20 @@ class Trip(models.Model):
         (2, '2 weeks'),
         (4, '4 weeks'),
     ]
-    name = models.CharField(max_length=50,default='Trip')
+    name = models.CharField(max_length=50, default='Trip')
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     duration = models.IntegerField(
         choices=DURATION_CHOICES, default=1)
     chosen_hotel = models.ForeignKey(
         Hotel, related_name='trips', on_delete=models.CASCADE)
-    departure_date = models.DateField(default=date.today,validators=[MinValueValidator(date.today)])
+    departure_date = models.DateField(default=date.today, validators=[
+                                      MinValueValidator(date.today)])
     total_cost = models.DecimalField(
         default=0.0, max_digits=10, decimal_places=2)
 
     def get_absolute_url(self):
         return reverse('travel:trip_details', args=[str(self.id)])
-    
+
     def save(self, *args, **kwargs):
         if self.duration and self.chosen_hotel:
             self.total_cost = self.duration * 7 * self.chosen_hotel.price_per_day
