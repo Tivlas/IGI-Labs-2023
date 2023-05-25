@@ -4,6 +4,7 @@ from .models import MyUser
 from django.core.validators import RegexValidator
 from datetime import date
 from django.core.exceptions import ValidationError
+from collections import OrderedDict
 
 
 def age_validator(value):
@@ -33,6 +34,16 @@ class MyUserCreationForm(UserCreationForm):
                   'phone_number', 'password1',
                   'password2'
                   }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields = OrderedDict(
+            (field_name, self.fields[field_name])
+            for field_name in [
+                'username', 'email', 'first_name', 'last_name', 'date_of_birth',
+                'phone_number', 'password1', 'password2'
+            ]
+        )
 
     def save(self, commit: bool):
         user = super(MyUserCreationForm, self).save(commit=False)
