@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import FormView
 from .forms import MyUserCreationForm
 from travel.models import Client
-
+from django.contrib.auth import logout
 
 class SignUpFormView(FormView):
     form_class = MyUserCreationForm
@@ -23,3 +23,9 @@ class SignUpFormView(FormView):
 
     def form_invalid(self, form):
         return super(SignUpFormView, self).form_invalid(form)
+
+class LogoutFormView(FormView):
+    def get(self, request):
+        logout(request)
+
+        return redirect('/')
