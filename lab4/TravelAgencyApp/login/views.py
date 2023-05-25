@@ -1,3 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic.edit import FormView
+from .forms import MyUserCreationForm
+from travel.models import Client
 
-# Create your views here.
+
+class SignUpFormView(FormView):
+    form_class = MyUserCreationForm
+    success_url = 'login/signin/'
+    template_name = 'signup.html'
+
+    def form_valid(self, form):
+        form.save()
+
+        Client.objects.create(username=form.cleaned_data['username'],
+                              first_name=form.cleaned_data['first_name'],
+                              last_name=form.cleaned_data['last_name'],
+                              email=form.cleaned_data['email'], phone_number=form.cleaned_data['phone_number'],
+                              date_of_birth=form.cleaned_data['date_of_birth'],
+                              ).save()
+
+        return super(SignUpFormView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return super(SignUpFormView, self).form_invalid(form)
