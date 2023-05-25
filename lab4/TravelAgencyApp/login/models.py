@@ -10,4 +10,4 @@ class MyUser(AbstractUser):
     phone_number = models.CharField(max_length=50)
     REQUIRED_FIELDS = ['first_name', 'last_name',
                        'email', 'date_of_birth', 'phone_number']
-    USERNAME_FIELD = ['username']
+    USERNAME_FIELD = 'username'
