@@ -24,7 +24,7 @@ class MyUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=50,
                                    validators=[RegexValidator(
                                        regex=r'^(\+375 (?:\(29\)|\(33\)|\(44\)|\(25\)) [0-9]{3}-[0-9]{2}-[0-9]{2})$',
-                                       message='Pattern: +375 (29//25/33/44) XXX-XX-XX',
+                                       message='Pattern: +375 (29/25/33/44) XXX-XX-XX',
                                    )])
 
     class Meta:
@@ -54,6 +54,6 @@ class MyUserCreationForm(UserCreationForm):
         user.phone_number = self.cleaned_data['phone_number']
 
         if commit:
-            user.save()
+            user.save(True)
 
         return user

@@ -51,7 +51,7 @@
     <div id="subheader">
         <div class="cart">
             {% if user.is_authenticated %}
-            |{{ user.username }}|
+            Hello, {{ user.username }}!
             <a href="{% url 'login:logout' %}">Log out</a>
             {% else %}
             <a href="{% url 'login:signup' %}">Sign up</a>

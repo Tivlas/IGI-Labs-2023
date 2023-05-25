@@ -12,7 +12,7 @@ class SignUpFormView(FormView):
     template_name = 'signup.html'
 
     def form_valid(self, form):
-        form.save()
+        form.save(True)
 
         Client.objects.create(username=form.cleaned_data['username'],
                               first_name=form.cleaned_data['first_name'],

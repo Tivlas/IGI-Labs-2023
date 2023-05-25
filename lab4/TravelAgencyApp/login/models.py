@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .my_user_manager import MyUserManager
 
 
 class MyUser(AbstractUser):
@@ -11,3 +12,4 @@ class MyUser(AbstractUser):
     REQUIRED_FIELDS = ['first_name', 'last_name',
                        'email', 'date_of_birth', 'phone_number']
     USERNAME_FIELD = 'username'
+    objects = MyUserManager()
