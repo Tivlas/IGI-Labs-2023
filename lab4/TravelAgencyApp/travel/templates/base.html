@@ -49,11 +49,15 @@
 
     </div>
     <div id="subheader">
-
-    </div>
-    <div id="content">
-        {% block content %}
-        {% endblock %}
+        <div class="cart">
+            {% if user.is_authenticated %}
+            |{{ user.username }}|
+            <a href="{% url 'login:logout' %}">Log out</a>
+            {% else %}
+            <a href="{% url 'login:signup' %}">Sign up</a>
+            <a href="{% url 'login:signin' %}">Sign in</a>
+            {% endif %}
+        </div>
     </div>
 </body>
 
