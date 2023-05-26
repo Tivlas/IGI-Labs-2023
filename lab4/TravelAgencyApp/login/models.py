@@ -13,3 +13,6 @@ class MyUser(AbstractUser):
                        'email', 'date_of_birth', 'phone_number']
     USERNAME_FIELD = 'username'
     objects = MyUserManager()
+
+    def __str__(self) -> str:
+        return f"{self.username}, {self.email}, id: {self.id}"
