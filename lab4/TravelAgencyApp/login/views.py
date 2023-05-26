@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from .forms import MyUserCreationForm
-from travel.models import Client
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -13,14 +12,6 @@ class SignUpFormView(FormView):
 
     def form_valid(self, form):
         form.save(True)
-
-        Client.objects.create(username=form.cleaned_data['username'],
-                              first_name=form.cleaned_data['first_name'],
-                              last_name=form.cleaned_data['last_name'],
-                              email=form.cleaned_data['email'], phone_number=form.cleaned_data['phone_number'],
-                              date_of_birth=form.cleaned_data['date_of_birth'],
-                              ).save()
-
         return super(SignUpFormView, self).form_valid(form)
 
     def form_invalid(self, form):

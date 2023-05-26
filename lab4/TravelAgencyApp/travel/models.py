@@ -1,22 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from datetime import date, timedelta
+from datetime import date
 from django.urls import reverse
-
-
-class Client(models.Model):
-    username = models.CharField(
-        max_length=255, help_text="Enter username", default='user')
-    first_name = models.CharField(max_length=255, help_text="Enter first name")
-    last_name = models.CharField(max_length=255, help_text="Enter last name")
-    email = models.EmailField(unique=True, help_text='something@gmail.com')
-    phone_number = models.CharField(
-        max_length=20, help_text='+375 (29) 123-45-67')
-    date_of_birth = models.DateField(validators=[MinValueValidator(
-        limit_value=date.today() - timedelta(days=18*365))])
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
 
 
 class SeasonClimateDescription(models.Model):
