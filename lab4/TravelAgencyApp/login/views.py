@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 class SignUpFormView(FormView):
     form_class = MyUserCreationForm
-    success_url = 'login/signin/'
+    success_url = '/login/signin/'
     template_name = 'signup.html'
 
     def form_valid(self, form):
