@@ -3,6 +3,7 @@ from .models import Trip, Country
 from django.http import HttpResponseNotFound
 from django.core.exceptions import PermissionDenied
 from .forms import TripForm
+from cart.forms import AddTripForm
 
 
 def list_trips(request, trip_country_name=None):
@@ -37,7 +38,7 @@ def list_trips(request, trip_country_name=None):
 
 def trip_details(request, id):
     trip = get_object_or_404(Trip, id=id)
-    return render(request, 'trips/trip_details.html', {'trip': trip})
+    return render(request, 'trips/trip_details.html', {'trip': trip, 'add_to_cart_form': AddTripForm()})
 
 
 def edit_trip(request, id):
