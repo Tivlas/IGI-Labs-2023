@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+Cart
+{% endblock %}
+{% block content %}
+<h1>Cart</h1>
+<table class="cart">
+    <thead>
+        <tr>
+            <th>Info</th>
+            <th>Trip</th>
+            <th>Quantity</th>
+            <th>Cost of one</th>
+            <th>Total cost</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+        {% with trip=item.trip %}
+        <tr>
+            <td>
+                <a href="{{ trip.get_absolute_url }}">
+                    Details
+                </a>
+            </td>
+            <td>{{ trip.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td class="num">{{ item.cost }}</td>
+            <td class="num">{{ item.total_cost }}</td>
+            <td><a href="{% url 'cart:cart_remove' trip.id %}">Remove</a></td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">{{ cart.get_total_cost }}</td>
+        </tr>
+    </tbody>
+</table>
+<p class="text-right">
+    <a href="{% url 'travel:list_trips' %}" class="button light">Back to trip list</a>
+</p>
+{% endblock %}

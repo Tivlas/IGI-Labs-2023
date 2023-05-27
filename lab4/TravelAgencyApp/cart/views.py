@@ -27,4 +27,4 @@ def cart_remove(request, trip_id):
 
 def cart_details(request):
     cart = Cart(request)
-    return render(request, 'cart/cart_details.html', {'cart': cart})
+    return render(request, 'cart_details.html', {'cart': cart})
