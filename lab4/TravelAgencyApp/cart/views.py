@@ -23,3 +23,8 @@ def cart_remove(request, trip_id):
     trip = get_object_or_404(Trip, id=trip_id)
     cart.remove(trip)
     return redirect('cart:cart_detail')
+
+
+def cart_details(request):
+    cart = Cart(request)
+    return render(request, 'cart/cart_details.html', {'cart': cart})
