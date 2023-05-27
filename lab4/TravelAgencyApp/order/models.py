@@ -19,12 +19,11 @@ class OrderItem(models.Model):
         Order, related_name='items', on_delete=models.CASCADE)
     trip = models.ForeignKey(
         Trip, related_name='order_items', on_delete=models.CASCADE)
-    _cost = models.DecimalField(max_digits=10, decimal_places=2)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return f"{self.id}"
 
-    @property
-    def cost(self):
+    def get_total_cost(self):
         return self.cost * self.quantity
