@@ -22,7 +22,7 @@ def cart_remove(request, trip_id):
     cart = Cart(request)
     trip = get_object_or_404(Trip, id=trip_id)
     cart.remove(trip)
-    return redirect('cart:cart_detail')
+    return redirect('cart:cart_details')
 
 
 def cart_details(request):
