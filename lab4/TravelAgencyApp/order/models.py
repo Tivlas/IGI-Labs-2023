@@ -27,3 +27,9 @@ class OrderItem(models.Model):
 
     def get_total_cost(self):
         return self.cost * self.quantity
+
+    def save(self, *args, **kwargs):
+        if self.quantity and self.trip:
+            self.cost = self.quantity * self.trip.total_cost
+
+        super().save(*args, **kwargs)
