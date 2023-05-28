@@ -55,6 +55,7 @@ class Trip(models.Model):
                                       MinValueValidator(date.today)])
     total_cost = models.DecimalField(
         default=0.0, max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='trip/', null=True, blank=False)
 
     def get_absolute_url(self):
         return reverse('travel:trip_details', args=[str(self.id)])

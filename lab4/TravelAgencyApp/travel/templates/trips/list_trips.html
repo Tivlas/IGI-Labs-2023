@@ -49,9 +49,16 @@
     </h1>
     {% for tr in trips %}
     <div class="item">
-        Trip name: {{ tr.name }}
+        {% if tr.image %}
+        <a href="{{ tr.get_absolute_url }}">
+            <br>
+            <img src="{{ tr.image.url }}" alt="Trip image">
+            <br>
+        </a>
+        {% endif %}
+        Trip name: <a href="{{ tr.get_absolute_url }}">{{ tr.name }}</a>
         <br>
-        Country name: <a href="{{ tr.get_absolute_url }}">{{ tr.country.name }}</a>
+        Country name: {{ tr.country.name }}
         <br>
         Hotel name: {{ tr.chosen_hotel.name }}
         <br>
