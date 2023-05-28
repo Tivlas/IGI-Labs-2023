@@ -3,6 +3,8 @@ from .models import OrderItem
 from cart.cart import Cart
 from .models import Order
 from django.core.exceptions import PermissionDenied
+import requests
+from .api_urls import API_URLS
 
 
 def create_order(request):
@@ -19,7 +21,12 @@ def create_order(request):
                                      cost=item['cost'],
                                      quantity=item['quantity'])
         cart.clear()
-        return render(request, 'order_created.html')
+        response = requests.get(API_URLS['random_dog_picture'])
+        image_url = None
+        if response.status_code == 200:
+            data = response.json()
+            image_url = data['message']
+        return render(request, 'order_created.html', {'image_url': image_url})
 
     return render(request, 'create_order.html',
                   {'cart': cart})
