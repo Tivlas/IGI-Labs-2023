@@ -28,4 +28,4 @@ class HotelAdmin(admin.ModelAdmin):
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
     list_display = ['name','country', 'duration',
-                    'chosen_hotel', 'departure_date', 'total_cost']
+                    'chosen_hotel', 'departure_date', 'cost']

@@ -15,7 +15,7 @@
         {{trip.chosen_hotel.stars}}</p>
     <p class="duration">Trip duration: {{ trip.duration }} week(s)</p>
     <p class="departure-date">Departure date: {{ trip.departure_date }}</p>
-    <p class="cost">Total cost: {{ trip.total_cost }}</p>
+    <p class="cost">Cost: {{ trip.cost }}</p>
     {%if user.is_authenticated%}
     <form action="{% url 'cart:cart_add' trip.id %}" method="post">
         <br>

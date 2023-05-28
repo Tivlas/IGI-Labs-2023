@@ -22,17 +22,17 @@ def list_trips(request, trip_country_name=None):
         trips = trips.filter(country=country)
 
     if min_cost and max_cost:
-        trips = trips.filter(total_cost__gte=min_cost,
-                             total_cost__lte=max_cost)
+        trips = trips.filter(cost__gte=min_cost,
+                             cost__lte=max_cost)
 
     if min_stars and max_stars:
         trips = trips.filter(chosen_hotel__stars__gte=min_stars,
                              chosen_hotel__stars__lte=max_stars)
 
     if sort == 'ascending':
-        trips = trips.order_by('total_cost')
+        trips = trips.order_by('cost')
     elif sort == 'descending':
-        trips = trips.order_by('-total_cost')
+        trips = trips.order_by('-cost')
 
     countries = Country.objects.all()
 

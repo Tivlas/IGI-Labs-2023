@@ -53,7 +53,7 @@ class Trip(models.Model):
         Hotel, related_name='trips', on_delete=models.CASCADE)
     departure_date = models.DateField(default=date.today, validators=[
                                       MinValueValidator(date.today)])
-    total_cost = models.DecimalField(
+    cost = models.DecimalField(
         default=0.0, max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='trip/', null=True, blank=False)
 
@@ -62,6 +62,6 @@ class Trip(models.Model):
 
     def save(self, *args, **kwargs):
         if self.duration and self.chosen_hotel:
-            self.total_cost = self.duration * 7 * self.chosen_hotel.price_per_day
+            self.cost = self.duration * 7 * self.chosen_hotel.price_per_day
 
         super().save(*args, **kwargs)

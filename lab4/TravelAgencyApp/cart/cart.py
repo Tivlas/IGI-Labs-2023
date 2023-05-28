@@ -20,7 +20,7 @@ class Cart:
         trip_id = str(trip.id)
         if trip_id not in self.cart:
             self.cart[trip_id] = {'quantity': 0,
-                                  'cost': str(trip.total_cost)}
+                                  'cost': str(trip.cost)}
         if update_quantity:
             self.cart[trip_id]['quantity'] = quantity
         else:

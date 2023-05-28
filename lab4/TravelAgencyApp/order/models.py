@@ -30,6 +30,6 @@ class OrderItem(models.Model):
 
     def save(self, *args, **kwargs):
         if self.quantity and self.trip:
-            self.cost = self.quantity * self.trip.total_cost
+            self.cost = self.quantity * self.trip.cost
 
         super().save(*args, **kwargs)
