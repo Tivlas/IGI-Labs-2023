@@ -3,11 +3,17 @@
 Cart
 {% endblock %}
 {% block content %}
+<style>
+    td {
+      border: 1px solid black;
+      text-align: center;
+    }
+  </style>
 <h1>Cart</h1>
 <table class="cart">
     <thead>
         <tr>
-            <th>Info</th>
+            <th>Image</th>
             <th>Trip</th>
             <th>Quantity</th>
             <th>Cost of one</th>
@@ -21,7 +27,7 @@ Cart
         <tr>
             <td>
                 <a href="{{ trip.get_absolute_url }}">
-                    Details
+                    <img src="{{ trip.image.url }}">
                 </a>
             </td>
             <td>{{ trip.name }}</td>
@@ -33,9 +39,9 @@ Cart
         {% endwith %}
         {% endfor %}
         <tr class="total">
-            <td>Total</td>
-            <td colspan="4"></td>
-            <td class="num">{{ cart.get_total_cost }}</td>
+            <td><br><br>Total</td>
+            <td colspan="3"></td>
+            <td class="num" colspan="2"><br><br>{{ cart.get_total_cost }}</td>
         </tr>
     </tbody>
 </table>
