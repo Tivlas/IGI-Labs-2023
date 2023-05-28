@@ -9,12 +9,11 @@
     <ul>
         {% for item in cart %}
         <li>
-            {{ item.trip.name }} — {{ item.quantity }}
-            <span>${{ item.total_cost }}</span>
+            {{ item.trip.name }} — {{ item.quantity }}, cost: {{ item.total_cost }}
         </li>
         {% endfor %}
     </ul>
-    <p>Total: ${{ cart.get_total_cost }}</p>
+    <p>Total: {{ cart.get_total_cost }}</p>
 </div>
 <form action="." method="POST" class="order-form">
     <p><input type="submit" value="Place order"></p>
