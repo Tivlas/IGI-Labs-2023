@@ -4,6 +4,9 @@
 {% endblock %}
 {% block content %}
 <div id="sidebar">
+    {%if fact_about_cat %}
+    Here is fact about cat: <strong>{{ fact_about_cat }}</strong>
+    {% endif %}
     <h3>Countries</h3>
     <ul>
         <li {% if not country %}class="selected" {% endif %}>
@@ -19,15 +22,15 @@
 <div id="main" class="trip-list">
     <h1>{% if country %}{{ country.name }}{% else %}Trips{% endif %}
         {% if user.is_staff %}
-        <a href="/create/">    Add trip</a>
+        <a href="/create/"> Add trip</a>
         {% endif %}
         {%if user.is_superuser%}
-        <a href="/statistics/">    Statistics</a>
+        <a href="/statistics/"> Statistics</a>
         {%endif%}
         <form action="{{ request.get_full_path }}" method="get">
             <button type="submit" name="sort" value="ascending">Sort by cost ascending</button>
             <button type="submit" name="sort" value="descending">Sort by cost descending</button>
-            
+
         </form>
         <form action="{{ request.get_full_path }}" method="get">
             <label for="min_cost" style="font-size: 20px;">Minimum cost:</label>

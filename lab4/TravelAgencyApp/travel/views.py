@@ -4,6 +4,8 @@ from django.http import HttpResponseNotFound
 from django.core.exceptions import PermissionDenied
 from .forms import TripForm
 from cart.forms import AddTripForm
+import requests
+from .api_urls import API_URLS
 
 
 def list_trips(request, trip_country_name=None):
@@ -33,7 +35,14 @@ def list_trips(request, trip_country_name=None):
         trips = trips.order_by('-total_cost')
 
     countries = Country.objects.all()
-    return render(request, 'trips/list_trips.html', {'trips': trips, 'countries': countries, 'country': country})
+
+    response = requests.get(API_URLS['fact_about_cat'])
+    fact_about_cat = None
+    if (response.status_code == 200):
+        data = response.json()
+        fact_about_cat = data['fact']
+
+    return render(request, 'trips/list_trips.html', {'trips': trips, 'countries': countries, 'country': country, 'fact_about_cat': fact_about_cat})
 
 
 def trip_details(request, id):
