@@ -12,7 +12,8 @@ def create_order(request):
         raise PermissionDenied("Permission denied. Sign in first.")
 
     cart = Cart(request)
-    if request.method == 'POST':
+    cart_is_empty = len(cart) == 0
+    if not cart_is_empty and request.method == 'POST':
         order = Order.objects.create(client=request.user)
 
         for item in cart:
@@ -29,4 +30,4 @@ def create_order(request):
         return render(request, 'order_created.html', {'image_url': image_url})
 
     return render(request, 'create_order.html',
-                  {'cart': cart})
+                  {'cart': cart, 'empty': cart_is_empty})
