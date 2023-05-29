@@ -31,3 +31,7 @@ def create_order(request):
 
     return render(request, 'create_order.html',
                   {'cart': cart, 'empty': cart_is_empty})
+
+
+def list_orders(request):
+    pass
