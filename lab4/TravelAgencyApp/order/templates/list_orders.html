@@ -6,10 +6,10 @@
     <h2>Orders</h2>
     {% if orders %}
         {% for order in orders %}
-            <h3>{{ order.client }}</h3>
+            <h3>Placed by {{ order.client }}</h3>
             <ul>
             {% for item in order.items.all %}
-                <li>{{ item.trip }} - {{ item.cost }} - Quantity: {{ item.quantity }}</li>
+                <li>{{ item.trip }} — cost: {{ item.cost }} — quantity: {{ item.quantity }}</li>
             {% endfor %}
             </ul>
         {% empty %}
