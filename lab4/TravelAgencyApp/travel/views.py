@@ -51,6 +51,9 @@ def trip_details(request, id):
 
 
 def edit_trip(request, id):
+    if not request.user.is_staff:
+        raise PermissionDenied("Permission denied!")
+    
     trip = None
     try:
         trip = get_object_or_404(Trip, id=id)
