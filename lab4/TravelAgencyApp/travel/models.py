@@ -65,3 +65,6 @@ class Trip(models.Model):
             self.cost = self.duration * 7 * self.chosen_hotel.price_per_day
 
         super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f"{self.name}"
