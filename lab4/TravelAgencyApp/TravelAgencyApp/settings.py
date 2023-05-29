@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'login',
     'order',
     'cart',
+    'personal_account',
     'bootstrap5'
 ]
 
