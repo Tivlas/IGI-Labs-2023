@@ -22,7 +22,7 @@
 <div id="main" class="trip-list">
     <h1>{% if country %}{{ country.name }}{% else %}Trips{% endif %}
         {% if user.is_staff %}
-        <a href="/create/"> Add trip</a>
+        <a href="/create_trip/"> Add trip</a>
         {% endif %}
         {%if user.is_superuser%}
         <a href="/statistics/"> Statistics</a>

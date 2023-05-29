@@ -78,3 +78,18 @@ def delete_trip(request, id):
         return redirect("/")
     except:
         return HttpResponseNotFound("<h2>No such trip :(</h2>")
+    
+def create_trip(request):
+    if not request.user.is_staff:
+        raise PermissionDenied("Permission denied!")
+    
+    if request.method == 'POST':
+        form = TripForm(request.POST, request.FILES)
+        if form.is_valid():
+            trip = form.save()
+            return redirect('travel:list_trips')
+    else:
+        form = TripForm()
+    
+    return render(request, 'trips/create_trip.html', {'form': form})
+
