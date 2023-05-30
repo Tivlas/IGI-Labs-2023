@@ -11,7 +11,7 @@ class Order(models.Model):
         return f"Order {self.id}, made on {self.creation_date}."
 
     def get_total_cost(self):
-        return sum(item.cost() for item in self.items.all())
+        return sum(item.get_total_cost() for item in self.items.all())
 
 
 class OrderItem(models.Model):
