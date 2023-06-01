@@ -38,7 +38,7 @@ def list_trips(request, trip_country_name=None):
 
     response = requests.get(API_URLS['fact_about_cat'])
     fact_about_cat = None
-    if (response.status_code == 200):
+    if (response.status_code == 200 and request.user.is_authenticated):
         data = response.json()
         fact_about_cat = data['fact']
 

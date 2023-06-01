@@ -6,8 +6,10 @@
 {% endblock %}
 {% block content %}
 <div id="sidebar">
+    {% if user.is_authenticated %}
     {%if fact_about_cat %}
     Here is fact about cat: <strong>{{ fact_about_cat }}</strong>
+    {% endif %}
     {% endif %}
     <h3>Countries</h3>
     <ul>
